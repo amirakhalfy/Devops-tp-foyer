@@ -12,7 +12,9 @@ import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
 import tn.esprit.tpfoyer.service.EtudiantServiceImpl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,12 +27,13 @@ class UserServiceImplTest {
     @InjectMocks
     EtudiantServiceImpl userService;
 
-    Etudiant user = new Etudiant();
+    Etudiant user = new Etudiant( 1L,"John", "Doe");
+
 
     List<Etudiant> listUsers = new ArrayList<>() {
         {
-            add(new Etudiant());
-            add(new Etudiant());
+            add(new Etudiant(2L,"John", "Doe"));
+            add(new Etudiant(3L,"John", "Doe"));
         }
     };
 
