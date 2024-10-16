@@ -3,9 +3,11 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.tpfoyer.entity.Etudiant;
@@ -18,8 +20,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
+@ExtendWith(MockitoExtension.class)
+
 class UserServiceImplTest {
     @Mock
     EtudiantRepository userRepository;
@@ -48,6 +51,8 @@ class UserServiceImplTest {
     }
 
     @Test
+    @Order(2)
+
     public void testRetrieveAllUsers() {
         Mockito.when(userRepository.findAll()).thenReturn(listUsers);
         List<Etudiant> listU = userService.retrieveAllEtudiants();
