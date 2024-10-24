@@ -11,6 +11,8 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/chambre")
+
+
 public class ChambreRestController {
 
     IChambreService chambreService;
@@ -18,6 +20,8 @@ public class ChambreRestController {
 // http://localhost:8089/tpfoyer/chambre/retrieve-all-chambres
      @GetMapping("/retrieve-all-chambres")
     public List<Chambre> getChambres() {
+         int
+                 abir ;
         List<Chambre> listChambres = chambreService.retrieveAllChambres();
         return listChambres;
     }
