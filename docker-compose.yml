@@ -1,7 +1,7 @@
 version: '2.29.7'
 services:
   db-mysql:
-    image: mysql:8.3
+    image: mysql:5.7
     container_name: db-mysql
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
