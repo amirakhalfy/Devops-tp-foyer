@@ -19,7 +19,7 @@ import java.util.Set;
 public class Etudiant {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)s
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
             //changement
     long idEtudiant;
 
