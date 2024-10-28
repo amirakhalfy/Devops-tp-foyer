@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
@@ -20,12 +21,11 @@ import java.util.Optional;
 public class EtudiantServiceImplMockTest {
 
     @Mock
-    EtudiantRepository etudiantRepository;
-
+    EtudiantRepository etudiantRepository = Mockito.mock(EtudiantRepository.class);
     @InjectMocks
     private EtudiantServiceImpl etudiantService;
 
-    Etudiant etudiant = new Etudiant(1, "John", "Doe", 12345678, new Date(), null);
+    Etudiant etudiant = new Etudiant(0, "John", "Doe", 12345678, new Date(), null);
     List<Etudiant> listEtudiants = new ArrayList<Etudiant>() {
         {
             add(new Etudiant(1, "TARAK", "TRTR", 12343434, new Date(), null));
