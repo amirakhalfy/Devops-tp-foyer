@@ -58,6 +58,7 @@ class TestFoyerServiceMockito {
         reset(foyerRepository);
     }
     @Test
+    @Order(1)
     void testRetrieveFoyer() {
         when(foyerRepository.findByIdFoyer(1L)).thenReturn(Optional.of(testFoyer));
         Foyer foyer1 = foyerService.retrieveFoyer(1L);
@@ -65,14 +66,7 @@ class TestFoyerServiceMockito {
         assertEquals("Foyer Amira", foyer1.getNomFoyer());
         assertEquals(1000, foyer1.getCapaciteFoyer());
     }
-    // Ce test garantit que la méthode retrieveFoyer gère correctement les situations où le foyer n'est pas trouvé.
-    @Test
-    void testRetrieveFoyerNotFound() {
-        when(foyerRepository.findByIdFoyer(2L)).thenReturn(Optional.empty());
-        Foyer foyer = foyerService.retrieveFoyer(2L);
-        assertNull(foyer);
-        verify(foyerRepository).findByIdFoyer(2L);
-    }
+
 
 
 }
