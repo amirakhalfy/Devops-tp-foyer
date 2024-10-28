@@ -20,11 +20,13 @@ public class EtudiantServiceImpl implements IEtudiantService {
     public List<Etudiant> retrieveAllEtudiants() {
         return etudiantRepository.findAll();
     }
-    public Etudiant retrieveEtudiant(Long etudiantId) {
-        Optional<Etudiant> optionalEtudiant = etudiantRepository.findByIdEtudiant(etudiantId);
-        return optionalEtudiant.orElseThrow(() -> new NoSuchElementException("No value present"));
-
-
+    public Etudiant retrieveEtudiant(Long id) {
+        Optional<Etudiant> etudiantOptional = etudiantRepository.findByIdEtudiant(id);
+        if (etudiantOptional.isPresent()) {
+            return etudiantOptional.get();
+        } else {
+            throw new NoSuchElementException("Etudiant not found");
+        }
     }
     public Etudiant addEtudiant(Etudiant c) {
         return etudiantRepository.save(c);
