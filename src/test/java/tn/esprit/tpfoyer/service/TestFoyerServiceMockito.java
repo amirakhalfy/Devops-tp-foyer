@@ -8,13 +8,10 @@ import tn.esprit.tpfoyer.entity.*;
 import tn.esprit.tpfoyer.repository.BlocRepository;
 import tn.esprit.tpfoyer.repository.FoyerRepository;
 import tn.esprit.tpfoyer.repository.UniversiteRepository;
-import tn.esprit.tpfoyer.service.FoyerServiceImpl;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
