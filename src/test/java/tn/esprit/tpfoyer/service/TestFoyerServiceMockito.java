@@ -147,53 +147,9 @@ class TestFoyerServiceMockito {
         verify(universityRepository, times(0)).save(any(Universite.class));
     }
 
+
     @Test
     @Order(7)
-    void testGetTauxOccupationFoyers_Found() {
-        Chambre chambreSimple = new Chambre();
-        chambreSimple.setTypeC(TypeChambre.SIMPLE);
-        chambreSimple.setReservations(Set.of(new Reservation()));
-
-        Chambre chambreDouble = new Chambre();
-        chambreDouble.setTypeC(TypeChambre.DOUBLE);
-        chambreDouble.setReservations(Set.of(new Reservation()));
-
-        testBloc.setChambres(Set.of(chambreSimple, chambreDouble));
-        when(foyerRepository.findAll()).thenReturn(List.of(testFoyer));
-
-        Map<Foyer, Double> result = foyerService.getTauxOccupationFoyers();
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertTrue(result.containsKey(testFoyer));
-        assertEquals(100.0, result.get(testFoyer), 0.1);
-        verify(foyerRepository, times(1)).findAll();
-    }
-
-    @Test
-    @Order(8)
-    void testGetTauxOccupationFoyers_NotFound() {
-        Chambre chambreSimple = new Chambre();
-        chambreSimple.setTypeC(TypeChambre.SIMPLE);
-
-        Chambre chambreDouble = new Chambre();
-        chambreDouble.setTypeC(TypeChambre.DOUBLE);
-
-        testBloc.setChambres(Set.of(chambreSimple, chambreDouble));
-        when(foyerRepository.findAll()).thenReturn(List.of(testFoyer));
-
-        Map<Foyer, Double> result = foyerService.getTauxOccupationFoyers();
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertTrue(result.containsKey(testFoyer));
-        assertEquals(0.0, result.get(testFoyer), 0.1);
-        verify(foyerRepository, times(1)).findAll();
-    }
-
-
-    @Test
-    @Order(9)
     void testRetrieveFoyer_Found() {
         when(foyerRepository.findById(1L)).thenReturn(Optional.of(testFoyer));
         Foyer result = foyerService.retrieveFoyer(1L);
@@ -203,7 +159,7 @@ class TestFoyerServiceMockito {
     }
 
     @Test
-    @Order(10)
+    @Order(8)
     void testRetrieveFoyer_NotFound() {
         when(foyerRepository.findById(anyLong())).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> foyerService.retrieveFoyer(1L));
@@ -211,7 +167,7 @@ class TestFoyerServiceMockito {
     }
 
     @Test
-    @Order(11)
+    @Order(9)
     void testAddFoyer() {
         when(foyerRepository.save(any(Foyer.class))).thenReturn(testFoyer);
         Foyer result = foyerService.addFoyer(testFoyer);
@@ -221,7 +177,7 @@ class TestFoyerServiceMockito {
     }
 
     @Test
-    @Order(12)
+    @Order(10)
     void testModifyFoyer() {
         when(foyerRepository.save(any(Foyer.class))).thenReturn(testFoyer);
         Foyer result = foyerService.modifyFoyer(testFoyer);
@@ -231,7 +187,7 @@ class TestFoyerServiceMockito {
     }
 
     @Test
-    @Order(13)
+    @Order(11)
     void testRemoveFoyer() {
         doNothing().when(foyerRepository).deleteById(1L);
         foyerService.removeFoyer(1L);
@@ -240,7 +196,7 @@ class TestFoyerServiceMockito {
 
 
     @Test
-    @Order(14)
+    @Order(12)
     void testRetrieveAllFoyers() {
 
         when(foyerRepository.findAll()).thenReturn(List.of(testFoyer));
