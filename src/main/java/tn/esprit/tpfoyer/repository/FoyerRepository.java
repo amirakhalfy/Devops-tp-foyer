@@ -10,9 +10,17 @@ import java.util.Optional;
 public interface FoyerRepository extends JpaRepository<Foyer, Long>
 {
 
-    Optional<Foyer> findByIdFoyer(long idfoyer);
+    /*devops*/
     Foyer findByUniversite_NomUniversite(String nomUniversite);
     Foyer findByNomFoyer(String nomfoyer);
+    /* No need to code CRUD here. Its is already in the
+    interfaces provided by the framework Spring Data JPA :
+       - CrudRepository or
+       - PagingAndSoringRepository or
+       - JpaRepository
+     */
+
+    /* Keywords : */
 
 }
 
