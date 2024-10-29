@@ -7,6 +7,8 @@ import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.repository.FoyerRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,9 +18,16 @@ public class FoyerServiceImpl implements IFoyerService {
     public List<Foyer> retrieveAllFoyers() {
         return foyerRepository.findAll();
     }
-    public Foyer retrieveFoyer(Long foyerId) {
-        return foyerRepository.findById(foyerId).get();
-    }
+        public Foyer retrieveEtudiant(Long foyerId) {
+            Optional<Foyer> foyerOptional = foyerRepository.findByIdFoyer(foyerId);
+            if (foyerOptional.isPresent()) {
+                return foyerOptional.get();
+            } else {
+                throw new NoSuchElementException("foyer not found");
+            }
+        }
+
+
     public Foyer addFoyer(Foyer f) {
         return foyerRepository.save(f);
     }
