@@ -76,58 +76,5 @@ public class FoyerServiceImpl implements IFoyerService {
     }
 
 
-
-    @Override
-    public Map<Foyer, Double> getTauxOccupationFoyers() {
-        List<Foyer> foyers = retrieveAllFoyers();
-        Map<Foyer, Double> tauxOccupationMap = new HashMap<>();
-
-        for (Foyer foyer : foyers) {
-            long capaciteTotale = foyer.getBlocs().stream()
-                    .flatMap(bloc -> bloc.getChambres().stream())
-                    .mapToLong(chambre -> {
-                        switch (chambre.getTypeC()) {
-                            case SIMPLE:
-                                return 1;
-                            case DOUBLE:
-                                return 2;
-                            case TRIPLE:
-                                return 3;
-                            default:
-                                return 0;
-                        }
-                    }).sum();
-
-            long chambresReservees = foyer.getBlocs().stream()
-                    .flatMap(bloc -> bloc.getChambres().stream())
-                    .mapToLong(chambre -> {
-                        if (!chambre.getReservations().isEmpty()) {
-                            switch (chambre.getTypeC()) {
-                                case SIMPLE:
-                                    return 1;
-                                case DOUBLE:
-                                    return 2;
-                                case TRIPLE:
-                                    return 3;
-                                default:
-                                    return 0;
-                            }
-                        }
-                        return 0;
-                    }).sum();
-
-            double tauxOccupation = capaciteTotale == 0 ? 100 : (double) chambresReservees / capaciteTotale * 100;
-
-            // Si aucune chambre n'est réservée, on considère un taux d'occupation de 100%
-            if (chambresReservees == 0) {
-                tauxOccupation = 0;
-            }
-
-            tauxOccupationMap.put(foyer, tauxOccupation);
-        }
-
-        return tauxOccupationMap;
-    }
-
 }
 

@@ -18,7 +18,6 @@ public interface IFoyerService {
     public Foyer getFoyerByNomUniversite(String nomUniversite);
     public Set<Bloc> getBlocsByFoyerByNom(String nomFoyer);
     public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite);
-    public Map<Foyer, Double> getTauxOccupationFoyers();
 
 
 
