@@ -1,4 +1,5 @@
 package tn.esprit.tpfoyer.service;
+
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,7 +17,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-
 class TestFoyerServiceMockito {
     @Mock
     private FoyerRepository foyerRepository;
@@ -31,6 +31,7 @@ class TestFoyerServiceMockito {
     private Foyer testFoyer;
     private Bloc testBloc;
     private Chambre testChambre;
+
     @BeforeEach
     void setUp() {
         testFoyer = new Foyer();
@@ -50,10 +51,7 @@ class TestFoyerServiceMockito {
         chambres.add(testChambre);
         testBloc.setChambres(chambres);
     }
-    @AfterEach
-    void tearDown() {
-        reset(foyerRepository);
-    }
+
     @Test
     @Order(1)
     void testRetrieveFoyer() {
@@ -63,6 +61,7 @@ class TestFoyerServiceMockito {
         assertEquals("Foyer Amira", foyer1.getNomFoyer());
         assertEquals(1000, foyer1.getCapaciteFoyer());
     }
+
     @Test
     @Order(2)
     void testGetFoyerByNomUniversite_Found() {
@@ -88,8 +87,6 @@ class TestFoyerServiceMockito {
         verify(foyerRepository, times(1)).findByUniversite_NomUniversite("Université B");
     }
 
-
-
     @Test
     @Order(4)
     void testGetBlocsByFoyerByNom_Found() {
@@ -113,7 +110,6 @@ class TestFoyerServiceMockito {
         assertTrue(result.isEmpty(), "La liste des blocs devrait être vide");
         verify(foyerRepository, times(1)).findByNomFoyer("Foyer B");
     }
-
 
     @Test
     @Order(6)
@@ -193,15 +189,10 @@ class TestFoyerServiceMockito {
         verify(foyerRepository, times(1)).findAll();
     }
 
-
     @Test
     @Order(10)
-    void testRetrieveFoyer_Found() {
-        when(foyerRepository.findById(1L)).thenReturn(Optional.of(testFoyer));
-        Foyer result = foyerService.retrieveFoyer(1L);
-        assertNotNull(result);
-        assertEquals(testFoyer.getIdFoyer(), result.getIdFoyer());
-        verify(foyerRepository, times(1)).findById(1L);
+    void testRetrieveFoyer_NullId() {
+        assertThrows(IllegalArgumentException.class, () -> foyerService.retrieveFoyer(null));
     }
 
     @Test
@@ -240,11 +231,9 @@ class TestFoyerServiceMockito {
         verify(foyerRepository, times(1)).deleteById(1L);
     }
 
-
     @Test
     @Order(15)
     void testRetrieveAllFoyers() {
-
         when(foyerRepository.findAll()).thenReturn(List.of(testFoyer));
 
         List<Foyer> result = foyerService.retrieveAllFoyers();
@@ -254,8 +243,4 @@ class TestFoyerServiceMockito {
         assertEquals(testFoyer.getNomFoyer(), result.get(0).getNomFoyer());
         verify(foyerRepository, times(1)).findAll();
     }
-
-
-
-
 }
