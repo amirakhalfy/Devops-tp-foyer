@@ -47,27 +47,5 @@ public class FoyerRestController {
         return foyerService.modifyFoyer(f);
     }
 
-    // http://localhost:8089/tpfoyer/foyer/get-by-universite/{nomUniversite}
-    @GetMapping("/get-by-universite/{nomUniversite}")
-    public Foyer getFoyerByNomUniversite(@PathVariable String nomUniversite) {
-        return foyerService.getFoyerByNomUniversite(nomUniversite);
-    }
 
-    // http://localhost:8089/tpfoyer/foyer/get-blocs-by-foyer/{nomFoyer}
-    @GetMapping("/get-blocs-by-foyer/{nomFoyer}")
-    public Set<Bloc> getBlocsByFoyerByNom(@PathVariable String nomFoyer) {
-        return foyerService.getBlocsByFoyerByNom(nomFoyer);
-    }
-
-    // http://localhost:8089/tpfoyer/foyer/add-and-assign-universite/{idUniversite}
-    @PostMapping("/add-and-assign-universite/{idUniversite}")
-    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer, @PathVariable long idUniversite) {
-        return foyerService.ajouterFoyerEtAffecterAUniversite(foyer, idUniversite);
-    }
-
-    // http://localhost:8089/tpfoyer/foyer/taux-occupation
-    @GetMapping("/taux-occupation")
-    public Map<Foyer, Double> getTauxOccupationFoyers() {
-        return foyerService.getTauxOccupationFoyers();
-    }
 }

@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class TestFoyerServiceMockito {
+
     @Mock
     private FoyerRepository foyerRepository;
     @Mock
@@ -90,14 +91,14 @@ class TestFoyerServiceMockito {
     @Test
     @Order(4)
     void testGetBlocsByFoyerByNom_Found() {
-        when(foyerRepository.findByNomFoyer("Foyer A")).thenReturn(testFoyer);
+        when(foyerRepository.findByNomFoyer("Foyer Amira")).thenReturn(testFoyer);
 
-        Set<Bloc> result = foyerService.getBlocsByFoyerByNom("Foyer A");
+        Set<Bloc> result = foyerService.getBlocsByFoyerByNom("Foyer Amira");
 
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals(testBloc.getNomBloc(), result.iterator().next().getNomBloc());
-        verify(foyerRepository, times(1)).findByNomFoyer("Foyer A");
+        verify(foyerRepository, times(1)).findByNomFoyer("Foyer Amira");
     }
 
     @Test
@@ -198,9 +199,9 @@ class TestFoyerServiceMockito {
     @Test
     @Order(11)
     void testRetrieveFoyer_NotFound() {
-        when(foyerRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(foyerRepository.findByIdFoyer(anyLong())).thenReturn(Optional.empty());
         assertThrows(NoSuchElementException.class, () -> foyerService.retrieveFoyer(1L));
-        verify(foyerRepository, times(1)).findById(anyLong());
+        verify(foyerRepository, times(1)).findByIdFoyer(anyLong());
     }
 
     @Test

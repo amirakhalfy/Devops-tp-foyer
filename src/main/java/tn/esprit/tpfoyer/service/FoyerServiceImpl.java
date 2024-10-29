@@ -1,6 +1,5 @@
 package tn.esprit.tpfoyer.service;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Bloc;
@@ -16,25 +15,27 @@ import java.util.*;
 @AllArgsConstructor
 public class FoyerServiceImpl implements IFoyerService {
 
-    FoyerRepository foyerRepository;
-    UniversiteRepository universiteRepository;
-    BlocRepository blocRepository;
+    private final FoyerRepository foyerRepository; // Ajout de final pour une meilleure immutabilité
+    private final UniversiteRepository universiteRepository;
+    private final BlocRepository blocRepository;
+
     public List<Foyer> retrieveAllFoyers() {
         return foyerRepository.findAll();
     }
-        public Foyer retrieveFoyer(Long foyerId) {
-            Optional<Foyer> foyerOptional = foyerRepository.findByIdFoyer(foyerId);
-            if (foyerOptional.isPresent()) {
-                return foyerOptional.get();
-            } else {
-                throw new NoSuchElementException("foyer not found");
-            }
-        }
 
+    public Foyer retrieveFoyer(Long foyerId) {
+        Optional<Foyer> foyerOptional = foyerRepository.findByIdFoyer(foyerId);
+        if (foyerOptional.isPresent()) {
+            return foyerOptional.get();
+        } else {
+            throw new NoSuchElementException("Foyer not found");
+        }
+    }
 
     public Foyer addFoyer(Foyer f) {
         return foyerRepository.save(f);
     }
+
     public Foyer modifyFoyer(Foyer foyer) {
         return foyerRepository.save(foyer);
     }
@@ -43,16 +44,14 @@ public class FoyerServiceImpl implements IFoyerService {
         foyerRepository.deleteById(foyerId);
     }
 
-    /**devops*/
     public Foyer getFoyerByNomUniversite(String nomUniversite) {
         Foyer foyer = foyerRepository.findByUniversite_NomUniversite(nomUniversite);
-
         if (foyer == null) {
             throw new RuntimeException("Foyer non trouvé pour l'université nommée : " + nomUniversite);
         }
-
         return foyer;
     }
+
     public Set<Bloc> getBlocsByFoyerByNom(String nomFoyer) {
         Foyer foyer = foyerRepository.findByNomFoyer(nomFoyer);
         if (foyer == null) {
@@ -60,12 +59,13 @@ public class FoyerServiceImpl implements IFoyerService {
         }
         return foyer.getBlocs();
     }
+
     public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, long idUniversite) {
         Universite universite = universiteRepository.findById(idUniversite).orElse(null);
 
         foyerRepository.save(foyer);
 
-        // Check if blocs is null before processing it
+        // Vérifier si blocs est nul avant de le traiter
         if (foyer.getBlocs() != null) {
             for (Bloc bloc : foyer.getBlocs()) {
                 bloc.setFoyer(foyer);
@@ -104,7 +104,8 @@ public class FoyerServiceImpl implements IFoyerService {
             long chambresReservees = foyer.getBlocs().stream()
                     .flatMap(bloc -> bloc.getChambres().stream())
                     .mapToLong(chambre -> {
-                        if (!chambre.getReservations().isEmpty()) {
+                        // Vérifier si les réservations sont non nulles avant de les traiter
+                        if (chambre.getReservations() != null && !chambre.getReservations().isEmpty()) {
                             switch (chambre.getTypeC()) {
                                 case SIMPLE:
                                     return 1;
@@ -121,7 +122,7 @@ public class FoyerServiceImpl implements IFoyerService {
 
             double tauxOccupation = capaciteTotale == 0 ? 100 : (double) chambresReservees / capaciteTotale * 100;
 
-            // Si aucune chambre n'est réservée, on considère un taux d'occupation de 100%
+            // Si aucune chambre n'est réservée, on considère un taux d'occupation de 0%
             if (chambresReservees == 0) {
                 tauxOccupation = 0;
             }
@@ -132,4 +133,3 @@ public class FoyerServiceImpl implements IFoyerService {
         return tauxOccupationMap;
     }
 }
-
