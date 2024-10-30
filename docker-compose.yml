@@ -1,48 +1,35 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysqldb:
     image: mysql:5.7
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db
+      - SPRING_PROFILES_ACTIVE=debug
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
-      - mysqldb_data:/var/lib/mysql
-    networks:
-      - backend
-
-  tp-foyer:
-    image: tp-foyer-backend:latest
-    depends_on:
-      - mysqldb
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/db?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SERVER_PORT: 8089
-    ports:
-      - "8088:8089"
-    networks:
-      - backend
+      - db:/var/lib/mysql
 
   app-timesheet:
-    image: app-timesheet:latest
     depends_on:
       - mysqldb
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/db?createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SERVER_PORT: 8089
+    image: amirakhalfi/tp-foyer:1.0.0
+    restart: on-failure
     ports:
-      - "8088:8089"
-    networks:
-      - backend
+      - 8089:8089
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/db?createDatabaseIfNotExist=true",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": "root",
+        "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL57Dialect",
+        "spring.jpa.hibernate.ddl-auto": "update"
+      }'
+    stdin_open: true
+    tty: true
 
 volumes:
-  mysqldb_data:
-
-networks:
-  backend:
+  db:
