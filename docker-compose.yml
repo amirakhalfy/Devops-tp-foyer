@@ -12,7 +12,7 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  app-timesheet:
+  tp-foyer:
     depends_on:
       - mysqldb
     image: amirakhalfi/tp-foyer:1.0.0
@@ -21,7 +21,7 @@ services:
       - 8089:8089
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/tp_foyer_db?createDatabaseIfNotExist=true",
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/db?createDatabaseIfNotExist=true",
         "spring.datasource.username": "root",
         "spring.datasource.password": "root",
         "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL57Dialect",
