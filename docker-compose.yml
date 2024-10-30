@@ -1,18 +1,17 @@
 version: "3.8"
-
 services:
   mysqldb:
     image: mysql:5.7
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=tp_foyer_db
+      - MYSQL_DATABASE=db
     ports:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
 
-  tp-foyer:
+  tp-timesheet:
     depends_on:
       - mysqldb
     image: amirakhalfi/tp-foyer:1.0.0
