@@ -5,6 +5,7 @@ services:
     image: mysql:8.3.0
     restart: unless-stopped
     environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/db?createDatabaseIfNotExist=true
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=tp_foyer_db
     ports:
@@ -21,7 +22,7 @@ services:
       - 8082:8082
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/tp_foyer_db?createDatabaseIfNotExist=true",
+        "spring.datasource.url=jdbc:mysql://tp_foyer-mysqldb-1:3306/db?createDatabaseIfNotExist=true",
         "spring.datasource.username" : "root",
         "spring.datasource.password" : "root",
         "spring.jpa.hibernate.ddl-auto" : "update"
