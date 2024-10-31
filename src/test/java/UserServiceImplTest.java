@@ -8,15 +8,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.repository.EtudiantRepository;
 import tn.esprit.tpfoyer.service.EtudiantServiceImpl;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +37,7 @@ class UserServiceImplTest {
 
     @Test
     @Order(1)
-    public void testRetrieveUser() {
+     void testRetrieveUser() {
         Mockito.when(userRepository.findById(Mockito.anyLong())).
                 thenReturn(Optional.of(user));
         Etudiant user1 = userService.retrieveEtudiant(2L);
@@ -53,7 +48,7 @@ class UserServiceImplTest {
     @Test
     @Order(2)
 
-    public void testRetrieveAllUsers() {
+     void testRetrieveAllUsers() {
         Mockito.when(userRepository.findAll()).thenReturn(listUsers);
         List<Etudiant> listU = userService.retrieveAllEtudiants();
         Assertions.assertEquals(2, listU.size());
