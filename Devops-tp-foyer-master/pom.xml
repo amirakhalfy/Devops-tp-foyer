@@ -3,12 +3,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>deploymentRepo</id>-->
+<!--            <name>Nexus Repository</name>-->
+<!--            <url>http://192.168.50.4:8081/repository/maven-releases/</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+
     <distributionManagement>
         <repository>
-            <id>deploymentRepo</id>
-            <name>Nexus Repository</name>
+            <id>nexus</id>
             <url>http://192.168.50.4:8081/repository/maven-releases/</url>
         </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>http://192.168.50.4:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <parent>
