@@ -49,23 +49,6 @@ public interface ChambreRepository extends JpaRepository<Chambre, Long> {
 
 
 
-    /* No need to code CRUD here. Its is already in the
-    interfaces provided by the framework Spring Data JPA :
-       - CrudRepository or
-       - PagingAndSortingRepository or
-       - JpaRepository
-     */
-
-
-
-
-
-    Chambre findChambreByNumeroChambre(Long num);
-
-
-
-
-
     // Recperer la chambre selon le CIN de l'étudiant qui l'occupe :
     @Query("SELECT ch FROM Chambre ch " +
             "INNER JOIN ch.reservations r " +

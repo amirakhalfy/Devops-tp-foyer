@@ -17,13 +17,11 @@ public class ConfigAOP {
 
     @Before("execution(* tn.esprit.tpfoyer.service.*.*(..))")
     public void logMethodEntry(JoinPoint joinPoint) {
-        String name = joinPoint.getSignature().getName();
-        log.info("In Metod AOP : " + name);
+        log.info("In Metod AOP : " + joinPoint.getSignature().getName());
     }
 
     @After("execution(* tn.esprit.tpfoyer.service.*.add*(..))")
     public void logMethodOut(JoinPoint joinPoint) {
-        String name = joinPoint.getSignature().getName();
         log.info("Execution Réussie ! ");
     }
 
