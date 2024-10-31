@@ -1,3 +1,4 @@
+package tn.esprit.tpfoyer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -37,7 +38,7 @@ class UserServiceImplTest {
 
     @Test
     @Order(1)
-     void testRetrieveUser() {
+    void testRetrieveUser() {
         Mockito.when(userRepository.findById(Mockito.anyLong())).
                 thenReturn(Optional.of(user));
         Etudiant user1 = userService.retrieveEtudiant(2L);
@@ -48,7 +49,7 @@ class UserServiceImplTest {
     @Test
     @Order(2)
 
-     void testRetrieveAllUsers() {
+    void testRetrieveAllUsers() {
         Mockito.when(userRepository.findAll()).thenReturn(listUsers);
         List<Etudiant> listU = userService.retrieveAllEtudiants();
         Assertions.assertEquals(2, listU.size());
