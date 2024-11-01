@@ -5,7 +5,7 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=root  # Removed root password for easier access
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=foyer_db
     ports:
       - 3306:3306
@@ -35,5 +35,19 @@ services:
     stdin_open: true
     tty: true
 
+  sonarqube:
+    image: sonarqube:8.9.7-community
+    restart: unless-stopped
+    ports:
+      - 9000:9000
+      - 9092:9092
+    volumes:
+      - 'SonarQube_data:/opt/SonarQube/data'
+      - 'SonarQube_extensions:/opt/SonarQube/extensions'
+      - 'SonarQube_logs:/opt/SonarQube/logs'
+
 volumes:
   db:
+  SonarQube_data:
+  SonarQube_extensions:
+  SonarQube_logs:
