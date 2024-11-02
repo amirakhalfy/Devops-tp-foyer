@@ -17,6 +17,15 @@ services:
       timeout: 10s
       retries: 5
 
+  mysqld-exporter:
+    image: prom/mysqld-exporter
+    container_name: mysqld-exporter
+    restart: unless-stopped
+    environment:
+      - DATA_SOURCE_NAME=root@(mysqldb:3306)/foyer_db
+    ports:
+      - 9104:9104
+
   app-timesheet:
     depends_on:
       - mysqldb
