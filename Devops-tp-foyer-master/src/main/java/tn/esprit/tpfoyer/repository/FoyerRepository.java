@@ -7,6 +7,9 @@ import tn.esprit.tpfoyer.entity.Foyer;
 @Repository
 public interface FoyerRepository extends JpaRepository<Foyer, Long>
 {
+    Foyer findByUniversite_NomUniversite(String universitéA);
+
+    Foyer findByNomFoyer(String foyerA);
 
     /* No need to code CRUD here. Its is already in the
     interfaces provided by the framework Spring Data JPA :
