@@ -7,9 +7,9 @@ EXPOSE 8082
 
 
 # Ajoutez le JAR de votre application
-ADD tp-foyer-5.0.1.jar tp-foyer-5.0.1.jar
+ADD target/tp-foyer-5.0.1.jar tp-foyer-5.0.1.jar
 
 
 # Set the entrypoint to run the application
-ENTRYPOINT ["java", "-jar", "tp-foyer-5.0.1.jar"]
+ENTRYPOINT ["java", "-jar", "/tp-foyer-5.0.1.jar"]
 
